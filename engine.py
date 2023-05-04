@@ -10,7 +10,7 @@ class Ray:
 
 class Identifier:
     def __init__(self):
-        pass
+        self.value = time.time()
 
 
 def get_id():
@@ -23,14 +23,20 @@ class Entity:
         self.properties = dict()
         self.id = get_id()
 
-    def set_property(self, prop, val):
-        self.properties[prop] = val
+    def set_property(self, prop, new_val):
+        self.properties[prop] = new_val
 
     def get_property(self, prop):
         return self.properties[prop]
 
     def remove_property(self, prop):
         del self.properties[prop]
+
+    def __getitem__(self, prop):
+        return self.get_property(prop)
+
+    def __setitem__(self, prop, new_val):
+        return self.set_property(prop, new_val)
 
 
 class EntitiesList:
@@ -44,10 +50,13 @@ class EntitiesList:
         self.entities.remove(entity)
 
     def get(self, id):
-        pass
+        for entity in self.entities:
+            if entity.id == id:
+                return entity
 
     def exec(self, func):
-        pass
+        self.entities = list(map(lambda obj: func(obj), self.entities))
+        return self.entities
 
 
 class Game:
