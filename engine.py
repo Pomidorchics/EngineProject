@@ -56,8 +56,7 @@ class EntitiesList:
                 return entity
 
     def exec(self, func):
-        self.entities = list(map(lambda obj: func(obj), self.entities))
-        return self.entities
+        pass
 
 
 class Game:
