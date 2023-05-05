@@ -1,4 +1,5 @@
 import time
+from classes import *
 
 
 class Ray:
@@ -12,16 +13,16 @@ class Identifier:
     def __init__(self):
         self.value = time.time()
 
-
-def get_id():
-    return time.time()
+    @staticmethod
+    def generate_id():
+        return time.time()
 
 
 class Entity:
     def __init__(self, cs):
         self.cs = cs
         self.properties = dict()
-        self.id = get_id()
+        self.id = Identifier.generate_id()
 
     def set_property(self, prop, new_val):
         self.properties[prop] = new_val
@@ -101,4 +102,9 @@ class Object(Entity):
 
 
 class Camera(Object):
-    pass
+    def __init__(self, fov, draw_distance, v_fov=0, look_at=Point([0, 0, 0])):
+        self.fov = fov
+        self.draw_distance = draw_distance
+        self.v_fov = v_fov
+        self.look_at = look_at
+
