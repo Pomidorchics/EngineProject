@@ -13,6 +13,7 @@ class TestMatrices:
         m = Matrix([[0, 3],
                     [5, 2]])
         act = isinstance(m, Matrix)
+
         assert act
 
     def test_matrix_size(self):
@@ -52,6 +53,7 @@ class TestMatrices:
         m = Matrix([[1, 2],
                     [3, 4]])
         act = m[0] == [1, 2] and m[0][0] == 1
+
         assert act
 
     def test_setitem(self):
@@ -59,67 +61,88 @@ class TestMatrices:
                     [3, 4]])
         m[0][1] = 5
         act = m[0][1] == 5
+
         assert act
 
     def test_matrices_addition(self):
         m1 = Matrix([[1, 2],
                      [3, 4]])
+
         m2 = Matrix([[0, 5],
                      [1, 6]])
+
         m3 = Matrix([[0, 0],
                      [0, 0]])
+
         act = m1 + m2 == m2 + m1 == Matrix([[1, 7],
                                             [4, 10]]) and \
             m1 + m3 == m3 + m1 == Matrix([[1, 2],
                                           [3, 4]])
+
         assert act
 
     def test_matrix_and_number_addition_exc(self):
         m = Matrix([[1, 2],
                     [3, 4]])
+
         with pytest.raises(EngineException):
             m + 5
 
     def test_matrices_addition_exc(self):
         m1 = Matrix([[1, 2],
                      [3, 4]])
+
         m2 = Matrix([[4, 5, 6],
                      [1, 2, 3]])
+
         with pytest.raises(EngineException):
             m1 + m2
 
     def test_matrices_subtraction(self):
         m1 = Matrix([[9, 8],
                      [7, 6]])
+
         m2 = Matrix([[1, 2],
                      [3, 4]])
+
         act = m1 - m2 == Matrix([[8, 6],
                                  [4, 2]])
+
         assert act
 
     def test_mul_matrix_and_number(self):
         m = Matrix([[1, 2],
                     [3, 4]])
+
         res_m = Matrix([[4, 8],
                         [12, 16]])
+
         act = m * 4 == 4 * m == res_m
+
         assert act
 
     def test_mul_matrices(self):
         m1 = Matrix([[1, 2],
                      [3, 4]])
+
         m2 = Matrix([[0, 3],
                      [5, 2]])
+
         m3 = Matrix([[10, 7],
                      [20, 17]])
+
         m4 = Matrix([[1, 2, 3],
                      [4, 5, 6]])
+
         m5 = Matrix([[1, 4, 6, 7],
                      [0, 1, 5, 3],
                      [4, 0, 1, 2]])
+
         m6 = Matrix([[13, 6, 19, 19],
                      [28, 21, 55, 55]])
+
         act = m1 * m2 == m3 and m4 * m5 == m6
+
         assert act
 
     def test_mul_matrices_exc(self):
@@ -128,6 +151,7 @@ class TestMatrices:
         m2 = Matrix([[5, 4, 3],
                      [2, 1, 0],
                      [9, 8, 7]])
+
         with pytest.raises(EngineException):
             m1 * m2
 
@@ -136,7 +160,8 @@ class TestMatrices:
                     [15, 20]])
         n = 5
         act = m / n == Matrix([[1, 2],
-                         [3, 4]])
+                               [3, 4]])
+
         assert act
 
     def test_div_matrices_exc(self):
@@ -144,6 +169,7 @@ class TestMatrices:
                      [3, 4]])
         m2 = Matrix([[3, 0],
                      [7, 2]])
+
         with pytest.raises(EngineException):
             m1 / m2
 
@@ -154,24 +180,28 @@ class TestMatrices:
                            [0, 0, 1, 0, 0],
                            [0, 0, 0, 1, 0],
                            [0, 0, 0, 0, 1]])
+
         assert act
 
     def test_zero_matrix(self):
         m = Matrix.zero_matrix(4, 4)
         act = m == Matrix([[0, 0, 0, 0],
-                     [0, 0, 0, 0],
-                     [0, 0, 0, 0],
-                     [0, 0, 0, 0]])
+                           [0, 0, 0, 0],
+                           [0, 0, 0, 0],
+                           [0, 0, 0, 0]])
+
         assert act
 
     def test_transpose_matrix(self):
         m = Matrix([[1, 2, 3, 4],
                     [5, 6, 7, 8],
                     [3, 4, 5, 6]])
+
         act = m.transpose() == Matrix([[1, 5, 3],
                                        [2, 6, 4],
                                        [3, 7, 5],
                                        [4, 8, 6]])
+
         assert act
 
     def test_determinant(self):
@@ -182,11 +212,13 @@ class TestMatrices:
         act = m1.determinant() == 1 and \
               m2.determinant() == 0 and \
               m3.determinant() == -31
+
         assert act
 
     def test_determinant_exc(self):
         m = Matrix([[1, 2, 3],
                     [4, 5, 6]])
+
         with pytest.raises(EngineException):
             m.determinant()
 
@@ -195,11 +227,13 @@ class TestMatrices:
                     [4, 5, 6],
                     [7, 10, 9]])
         act = m * m.inverse() == m.inverse() * m == Matrix.identity(3)
+
         assert act
 
     def test_inverse_exc1(self):
         m = Matrix([[7, 11, 12],
                     [3, 8, 0]])
+
         with pytest.raises(EngineException):
             m.inverse()
 
@@ -207,6 +241,7 @@ class TestMatrices:
         m = Matrix([[1, 2, 3],
                     [4, 5, 6],
                     [7, 8, 9]])
+
         with pytest.raises(EngineException):
             m.inverse()
 
@@ -218,6 +253,7 @@ class TestMatrices:
         act = m == Matrix([[14, 12, 20],
                            [12, 40, 24],
                            [20, 24, 80]])
+
         assert act
 
     def test_gram_exc(self):
@@ -281,6 +317,7 @@ class TestVectors:
     def test_scalar_product_exc(self):
         vec1 = Vector([[1, 2, 3, 4]])
         vec2 = Vector([[1, 4, 9]])
+
         with pytest.raises(EngineException):
             vec1 % vec2
 
@@ -294,12 +331,14 @@ class TestVectors:
     def test_vector_product_exc1(self):
         vec1 = Vector([[1, 2, 3, 4]])
         vec2 = Vector([[1, 2]])
+
         with pytest.raises(EngineException):
             vec1 ** vec2
 
     def test_vector_product_exc2(self):
         vec1 = Vector([[1, 2, 3]])
         mat = Matrix([[5, 6, 7]])
+
         with pytest.raises(EngineException):
             vec1 ** mat
 
@@ -318,12 +357,14 @@ class TestVectors:
 
     def test_vec_and_number_addition_exc(self):
         vec = Vector([[1, 2, 3]])
+
         with pytest.raises(EngineException):
             vec + 5
 
     def test_vec_addition_exc(self):
         vec1 = Vector([[1, 2, 3]])
         vec2 = Vector([[1, 2, 3, 4]])
+
         with pytest.raises(EngineException):
             vec1 + vec2
 
