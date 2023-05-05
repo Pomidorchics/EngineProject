@@ -3,9 +3,9 @@ from classes import *
 
 
 class Ray:
-    def __init__(self, cs, initialpt, direction):
+    def __init__(self, cs, initial_pt, direction):
         self.cs = cs
-        self.initialpt = initialpt
+        self.initial_pt = initial_pt
         self.direction = direction
 
 
